@@ -38,7 +38,7 @@ botCapture.message() do |event|
   username = event.user.username;
   message = event.message;
 
-  if username == "Warcraft Logs" or username == 'Sodastereo' then
+  if username == "Warcraft Logs" then
     parts = message.to_s.split("\n")
     urlParts =  parts[1].split("/");
 
