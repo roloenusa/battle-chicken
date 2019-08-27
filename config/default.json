@@ -1,0 +1,8 @@
+{
+    "warcraftslogs_userid": "490964479891341312",
+    "urls": [
+        "https://www.warcraftlogs.com/reports/%s",
+        "https://wowanalyzer.com/report/%s",
+        "https://www.wipefest.net/report/%s"
+    ]
+}

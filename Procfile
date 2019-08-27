@@ -1,1 +1,1 @@
-worker: bundle exec ruby main.rb
+web: node app.js
