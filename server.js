@@ -14,7 +14,10 @@ function formatReport(embed) {
   return event.join("\n");
 }
 
+console.log(config);
+
 client.on('ready', () => {
+  console.log("BOT has been initialized.");
   let targetGuild = client.guilds.find('name', config.smoke.target_guild_name);
   let targetChannel = targetGuild.channels.find('name', config.smoke.target_channel_name);
 
@@ -22,7 +25,6 @@ client.on('ready', () => {
   let sourceChannel = sourceGuild.channels.find('name', config.smoke.source_channel_name);
 
   // List servers the bot is connected to
-  console.log("Servers:")
   sourceChannel.fetchMessages({ limit: 5 })
   .then(messages => {
     console.log(`Received ${messages.size} messages`)
@@ -46,6 +48,15 @@ client.on('ready', () => {
 
 
 client.on('message', message => {
+  // Prevent bot from responding to its own messages
+  if (message.author == client.user) {
+      return
+  }
+
+  if (message.content === 'ping') {
+    message.channel.send("pong");
+  }
+
   if (message.author.id == config.warcraftlogs_userid) {
     message.embeds.forEach(embed => {
       console.log("======== \n");

@@ -1,0 +1,10 @@
+{
+    "bot_secret_token": "bot_secret_token",
+    "smoke": {
+        "source_guild_name": "source_guild_name",
+        "source_channel_name": "source_channel_name",
+        "target_guild_name": "target_guild_name",
+        "target_channel_name": "target_channel_name"
+
+    }
+}
