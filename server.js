@@ -39,7 +39,7 @@ client.on('ready', () => {
           console.log(embed.url);
 
           const response = formatReport(embed);
-          targetChannel.send(response).then(msg => msg.delete(10000));
+          targetChannel.send(response).then(msg => msg.delete(1000 * 60 * 60));
         });
       }
     })
