@@ -18,6 +18,7 @@ console.log(config);
 
 client.on('ready', () => {
   console.log("BOT has been initialized.");
+  console.log('Configurations: ', config);
   let targetGuild = client.guilds.find('name', config.smoke.target_guild_name);
   let targetChannel = targetGuild.channels.find('name', config.smoke.target_channel_name);
 
@@ -30,7 +31,7 @@ client.on('ready', () => {
     console.log(`Received ${messages.size} messages`)
     messages.forEach(message => {
 
-      if (message.author.id == 490964479891341312) {
+      if (message.author.id == config.warcraftlogs_userid) {
 
         message.embeds.forEach(embed => {
           console.log("\n========");
@@ -38,7 +39,7 @@ client.on('ready', () => {
           console.log(embed.url);
 
           const response = formatReport(embed);
-          targetChannel.send(response);
+          targetChannel.send(response).then(msg => msg.delete(10000));
         });
       }
     })
@@ -55,6 +56,33 @@ client.on('message', message => {
 
   if (message.content === 'ping') {
     message.channel.send("pong");
+  }
+
+  if (message.content === '!delete') {
+    client.user.lastMessage.delete();
+    message.react('👍');
+  }
+
+  if (message.content === '!react') {
+    message.react('👍').then(() => message.react('👎'));
+
+    const filter = (reaction, user) => {
+      return ['👍', '👎'].includes(reaction.emoji.name) && user.id === message.author.id;
+    };
+
+    message.awaitReactions(filter, { max: 1, time: 60000, errors: ['time'] })
+      .then(collected => {
+        const reaction = collected.first();
+
+        if (reaction.emoji.name === '👍') {
+          message.reply('you reacted with a thumbs up.');
+        } else {
+          message.reply('you reacted with a thumbs down.');
+        }
+      })
+      .catch(collected => {
+        message.reply('you reacted with neither a thumbs up, nor a thumbs down.');
+      });
   }
 
   if (message.author.id == config.warcraftlogs_userid) {
