@@ -24,7 +24,6 @@ client.on('ready', () => {
 
   let sourceGuild = client.guilds.find('name', config.smoke.source_guild_name);
   let sourceChannel = sourceGuild.channels.find('name', config.smoke.source_channel_name);
-  console.dir(sourceChannel.guild.members);
 
   // List servers the bot is connected to
   sourceChannel.fetchMessages({ limit: 5 })
@@ -32,7 +31,9 @@ client.on('ready', () => {
     console.log(`Received ${messages.size} messages`)
     messages.forEach(message => {
 
-      console.dir(message.author);
+      if (message.author.username === 'Warcraft Logs') {
+        console.log(message.author);
+      }
       if (message.author.id == config.warcraftlogs_userid) {
 
         message.embeds.forEach(embed => {
