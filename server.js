@@ -24,7 +24,7 @@ client.on('ready', () => {
 
   let sourceGuild = client.guilds.find('name', config.smoke.source_guild_name);
   let sourceChannel = sourceGuild.channels.find('name', config.smoke.source_channel_name);
-  console.dir(sourceChannel);
+  console.dir(sourceChannel.guild.members);
 
   // List servers the bot is connected to
   sourceChannel.fetchMessages({ limit: 5 })
