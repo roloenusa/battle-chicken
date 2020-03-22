@@ -32,6 +32,7 @@ client.on('ready', () => {
     console.log(`Received ${messages.size} messages`)
     messages.forEach(message => {
 
+      console.dir(message.author);
       if (message.author.id == config.warcraftlogs_userid) {
 
         message.embeds.forEach(embed => {
